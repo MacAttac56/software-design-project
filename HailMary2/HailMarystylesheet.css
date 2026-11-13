@@ -1,0 +1,240 @@
+
+/* Remove default browser spacing */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Banner across the top */
+.site-banner {
+    width: 100%;
+    background-color: #172554;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.site-banner h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.site-banner p {
+    margin: 8px 0 0;
+    font-size: 1rem;
+}
+
+/* navigation bar size */
+.custom-navbar {
+    width: 100%;
+    background-color: #2563eb;
+    padding: 12px 25px;
+}
+
+/* Hail Mary brand */
+.custom-navbar .navbar-brand {
+    color: rgb(211, 147, 18);
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Navigation links */
+.custom-navbar .nav-link {
+    color: white;
+    margin-left: 12px;
+}
+
+/* Hover effect */
+.custom-navbar .nav-link:hover {
+    color: #facc15;
+}
+
+/* Highlightcurrent page */
+.custom-navbar .nav-link.active {
+    color: #facc15;
+}
+
+
+main {
+    min-height: 300px;
+}
+
+
+/* Registration page background and layout */
+.signup-page {
+    max-width: 100%;
+    margin: 0;
+    padding: 45px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Registration form card */
+.signup-card {
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Form heading */
+.signup-card h2 {
+    color: #182235;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.signup-intro {
+    color: #5b6470;
+    margin-bottom: 28px;
+}
+
+/* Form labels */
+.signup-card .form-label {
+    color: #202938;
+    font-weight: 600;
+}
+
+/* Form fields */
+.signup-card .form-control,
+.signup-card .form-select {
+    padding: 12px;
+    border: 1px solid #b8c0cd;
+    border-radius: 7px;
+}
+
+.signup-card .form-control:focus,
+.signup-card .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+}
+
+/* Submit button */
+.signup-button {
+    width: 100%;
+    margin-top: 5px;
+    padding: 13px 20px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signup-button:hover {
+    background-color: #1d4ed8;
+}
+
+.signup-note {
+    color: #5b6470;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 18px 0 0;
+}
+
+/* Mobile layout */
+@media (max-width: 576px) {
+    .signup-page {
+        padding: 25px 14px;
+    }
+
+    .signup-card {
+        padding: 23px 18px;
+    }
+
+    .signup-card h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Listing card pictures */
+.listing-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background-color: #f1f5f9;
+}
+
+.listing-image-placeholder {
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e2e8f0;
+    color: #475569;
+    font-weight: 600;
+}
+
+.card .card-title {
+    color: #172554;
+    overflow-wrap: anywhere;
+}
+
+.card .card-text {
+    overflow-wrap: anywhere;
+}
+
+/* Keep the listing upload form consistent with sign-up */
+.signup-card textarea.form-control {
+    min-height: 110px;
+}
+
+.signup-card input[type="file"].form-control {
+    padding: 10px;
+}
+
+@media (max-width: 576px) {
+    .listing-image,
+    .listing-image-placeholder {
+        height: 200px;
+    }
+}
+/* Marketplace listing images */
+.listing-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background-color: #f1f5f9;
+}
+
+.listing-image-placeholder {
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e2e8f0;
+    color: #475569;
+    font-weight: 600;
+}
+/*Cart style sheet*/
+.card .card-title {
+    color: #172554;
+    overflow-wrap: anywhere;
+}
+
+.card .card-text {
+    overflow-wrap: anywhere;
+}
+
+/* Upload form */
+.signup-card textarea.form-control {
+    min-height: 110px;
+}
+
+.signup-card input[type="file"].form-control {
+    padding: 10px;
+}
+
+@media (max-width: 576px) {
+    .listing-image,
+    .listing-image-placeholder {
+        height: 200px;
+    }
+}

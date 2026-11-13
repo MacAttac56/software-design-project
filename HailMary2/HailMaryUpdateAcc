@@ -1,0 +1,108 @@
+
+<?php
+session_start();
+require_once 'db.php';
+
+if (!isset($_SESSION['student_id'])) {
+    header('Location: HailMaryAccessPage.php');
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: HailMaryAccount.php');
+    exit;
+}
+
+if (
+    !isset($_POST['csrf_token']) ||
+    !hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'])
+) {
+    header('Location: HailMaryAccount.php?error=1');
+    exit;
+}
+
+$studentId = (int) $_SESSION['student_id'];
+$name = trim($_POST['name'] ?? '');
+$phone = trim($_POST['phone'] ?? '');
+
+$currentPassword = $_POST['current_password'] ?? '';
+$newPassword = $_POST['new_password'] ?? '';
+$confirmPassword = $_POST['confirm_password'] ?? '';
+
+if ($name === '' || $phone === '') {
+    header('Location: HailMaryAccount.php?error=1');
+    exit;
+}
+
+if (strlen($name) > 100 || strlen($phone) > 30) {
+    header('Location: HailMaryAccount.php?error=1');
+    exit;
+}
+
+try {
+    $stmt = $pdo->prepare("
+        SELECT Password_Hash
+        FROM Students
+        WHERE Student_ID = ?
+    ");
+    $stmt->execute([$studentId]);
+    $student = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$student) {
+        header('Location: HailMaryAccessPage.php');
+        exit;
+    }
+
+    // A password change is optional.
+    $changePassword = (
+        $currentPassword !== '' ||
+        $newPassword !== '' ||
+        $confirmPassword !== ''
+    );
+
+    if ($changePassword) {
+        if (
+            $currentPassword === '' ||
+            $newPassword === '' ||
+            $confirmPassword === '' ||
+            !password_verify($currentPassword, $student['Password_Hash']) ||
+            strlen($newPassword) < 8 ||
+            strlen($newPassword) > 72 ||
+            $newPassword !== $confirmPassword
+        ) {
+            header('Location: HailMaryAccount.php?error=1');
+            exit;
+        }
+
+        $newHash = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $stmt = $pdo->prepare("
+            UPDATE Students
+            SET Name = ?, Phone_Number = ?, Password_Hash = ?
+            WHERE Student_ID = ?
+        ");
+
+        $stmt->execute([$name, $phone, $newHash, $studentId]);
+
+    } else {
+        $stmt = $pdo->prepare("
+            UPDATE Students
+            SET Name = ?, Phone_Number = ?
+            WHERE Student_ID = ?
+        ");
+
+        $stmt->execute([$name, $phone, $studentId]);
+    }
+
+    // Keep the session name current.
+    $_SESSION['student_name'] = $name;
+
+    header('Location: HailMaryAccount.php?updated=1');
+    exit;
+
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    header('Location: HailMaryAccount.php?error=1');
+    exit;
+}
+?>
